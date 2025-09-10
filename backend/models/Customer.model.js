@@ -20,7 +20,8 @@ ownerId: {
   type: mongoose.Schema.Types.ObjectId,
   ref: "User",
   required: true
-}
+},
+leads: [{ type: mongoose.Schema.Types.ObjectId, ref: "Lead" }]
 },{timestamps: true});
 
 const Customer = mongoose.model("Customer", customerSchema);
