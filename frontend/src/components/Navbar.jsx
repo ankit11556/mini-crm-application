@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 const Navbar = ({ toggleSidebar }) => {
   return (
     <nav className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md sticky top-0 z-50">
@@ -22,7 +23,7 @@ const Navbar = ({ toggleSidebar }) => {
               Hello, User
             </span>
             <button className="px-4 py-2 bg-white text-indigo-600 font-semibold rounded-lg shadow hover:bg-gray-100 transition">
-              Login
+             <Link to="/login">Login</Link>
             </button>
           </div>
 
