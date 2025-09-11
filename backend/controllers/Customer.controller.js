@@ -55,7 +55,7 @@ exports.getCustomers = async (req,res) => {
 exports.getCustomerDetailView = async (req,res) => {
   try {
     const {id} = req.params;
-    const customer = await Customer.findOne({_id: id, ownerId: req.user._id});
+    const customer = await Customer.findOne({_id: id, ownerId: req.user._id}).populate('leads');
     if (!customer) {
       res.status(404).json({message: "Customer not found"})
     }
