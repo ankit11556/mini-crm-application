@@ -1,14 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from "react";
+import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
     <>
-     <h1 className='bg-red-300'>hello world</h1>
+      <Navbar toggleSidebar={toggleSidebar} />
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      {/* Main content placeholder */}
+      <main className="ml-0 md:ml-64 p-4">
+        <h1 className="text-2xl font-bold">Dashboard / Page Content</h1>
+      </main>
     </>
   )
 }
