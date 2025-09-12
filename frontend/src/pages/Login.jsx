@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { loginApi } from "../services/AuthApi";
 
 const Login = () =>{
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ email: "", passwordHash: "" });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -11,9 +12,10 @@ const Login = () =>{
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      
+      const res = await  loginApi(formData)
+      alert(res.data.message)
     } catch (error) {
-      console.log(error);
+      alert(error.response?.data?.message)
     }
   };
 
@@ -37,9 +39,9 @@ const Login = () =>{
 
         <input
           type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
+          name="passwordHash"
+          placeholder="password"
+          value={formData.passwordHash}
           onChange={handleChange}
           className="w-full p-3 mb-6 border rounded"
           required

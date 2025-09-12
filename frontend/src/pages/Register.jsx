@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { registerApi } from "../services/AuthApi";
 
 export default function Register() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: "",
+    passwordHash: "",
   });
 
   const handleChange = (e) => {
@@ -15,10 +16,10 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-     
-     
+     const res = await registerApi(formData)
+     alert(res.data.message)
     } catch (error) {
-      console.log(error);
+      alert(error.response?.data?.message || "Something went wrong")
     }
   };
 
@@ -51,10 +52,10 @@ export default function Register() {
         />
 
         <input
-          type="password"
-          name="password"
+          type="passwordHash"
+          name="passwordHash"
           placeholder="Password"
-          value={formData.password}
+          value={formData.passwordHash}
           onChange={handleChange}
           className="w-full p-3 mb-6 border rounded"
           required
