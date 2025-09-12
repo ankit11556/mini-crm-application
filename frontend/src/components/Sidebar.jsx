@@ -1,4 +1,5 @@
 import { Home, UserPlus, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 const  Sidebar = ({ isOpen, toggleSidebar })=> {
   return (
     <aside
@@ -15,7 +16,11 @@ const  Sidebar = ({ isOpen, toggleSidebar })=> {
         
         <li  className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/20 transition">
           <UserPlus size={20} />
-          <span className="text-sm font-medium">Add Customer</span>
+          <span className="text-sm font-medium">
+            <Link to="/add-customer">
+            Add Customer
+            </Link>
+            </span>
         </li>
 
         <li  className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/20 transition">
