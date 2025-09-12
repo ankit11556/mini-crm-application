@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCustomersApi } from "../services/CustomerApi";
-
+import { Link } from "react-router-dom";
 
 const AllCustomers = () =>{
   const [customers, setCustomers] = useState([]);
@@ -58,9 +58,11 @@ const AllCustomers = () =>{
                   <td className="p-3">{customer.phone}</td>
                   <td className="p-3">{customer.company}</td>
                   <td className="p-3 space-x-2">
+                    <Link to={`/customer-detail-page/${customer._id}`}>
                     <button className="px-3 py-1 bg-blue-500 text-white rounded-lg">
                       View
                     </button>
+                    </Link>
                     <button className="px-3 py-1 bg-yellow-500 text-white rounded-lg">
                       Edit
                     </button>

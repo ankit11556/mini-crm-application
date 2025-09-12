@@ -14,3 +14,7 @@ export const getCustomersApi = async (page = 1, limit = 10, search = "") => {
     withCredentials: true,
   });
 };
+
+export const getCustomerDetailApi = async (id) => {
+  return axios.get(`${API_URL}/customers/${id}`, { withCredentials: true });
+};
