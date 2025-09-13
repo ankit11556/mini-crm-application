@@ -10,7 +10,11 @@ const  Sidebar = ({ isOpen, toggleSidebar })=> {
       <ul className="flex flex-col p-4 space-y-6">
         <li  className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/20 transition">
           <Home size={20} />
-          <span className="text-sm font-medium">Dashboard</span>
+          <span className="text-sm font-medium">
+            <Link to="/">
+            Dashboard
+            </Link>
+          </span>
         </li>
 
         
