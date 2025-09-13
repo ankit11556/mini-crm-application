@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getCustomerDetailApi } from "../services/CustomerApi";
+import { Link } from "react-router-dom";
 
 const  CustomerDetailPage = ()=> {
 
@@ -61,9 +62,11 @@ const  CustomerDetailPage = ()=> {
           </select>
 
           {/* Add Lead Button */}
+          <Link to={`/customer-detail-page/${customer?._id}/add-lead`}>
           <button className="ml-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
             + Add Lead
           </button>
+          </Link>
         </div>
 
         {/* Leads Table */}
