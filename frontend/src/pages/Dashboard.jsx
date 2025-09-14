@@ -1,5 +1,4 @@
 import  { useEffect, useState } from "react";
-import axios from "axios";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { dashboardStatsApi } from "../services/DashboardApi";
 
@@ -27,7 +26,7 @@ const Dashboard = () => {
   }));
 
   return (
-    <div className="p-6">
+    <div className="ml-64 p-6">
       {/* Header */}
       <h1 className="text-2xl font-bold mb-6">📊 Dashboard</h1>
 

@@ -12,3 +12,9 @@ export const loginApi = async (data) => {
     {withCredentials: true}
   )
 }
+
+export const checkAuthApi = async () => {
+  return axios.get(`${API_URL}/auth/check-auth`,
+    {withCredentials: true}
+  )
+}
