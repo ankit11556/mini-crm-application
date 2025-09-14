@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getCustomersApi } from "../services/CustomerApi";
-import { Link } from "react-router-dom";
+import { deleteCustomerApi, getCustomersApi } from "../services/CustomerApi";
+import { Link, useNavigate } from "react-router-dom";
 
 const AllCustomers = () =>{
   const [customers, setCustomers] = useState([]);
@@ -8,6 +8,8 @@ const AllCustomers = () =>{
   const [page, setPage] = useState(1);
   const [limit] = useState(5); // per page items
   const [pagination, setPagination] = useState({});
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchCustomers();
@@ -23,6 +25,17 @@ const AllCustomers = () =>{
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      const res = await deleteCustomerApi(id)
+      alert(res.data.message);
+
+     const newCustomers = customers.filter((customer)=>customer._id !==id)
+      setCustomers(newCustomers)
+    } catch (error) {
+      console.log(response.data?.message);
+    }
+  }
   return (
     <div className="p-6 md:ml-64 mt-16">
     
@@ -63,10 +76,14 @@ const AllCustomers = () =>{
                       View
                     </button>
                     </Link>
-                    <button className="px-3 py-1 bg-yellow-500 text-white rounded-lg">
+                    <button className="px-3 py-1 bg-yellow-500 text-white rounded-lg"
+                    onClick={()=>navigate("/add-customer",{state: {customer:customer}})}
+                    >
                       Edit
                     </button>
-                    <button className="px-3 py-1 bg-red-500 text-white rounded-lg">
+                    <button className="px-3 py-1 bg-red-500 text-white rounded-lg"
+                    onClick={()=>handleDelete(customer._id)}
+                    >
                       Delete
                     </button>
                   </td>

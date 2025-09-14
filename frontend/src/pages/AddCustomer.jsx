@@ -1,7 +1,12 @@
-import { useState } from "react";
-import { addCustomerApi } from "../services/CustomerApi";
+import { useEffect, useState } from "react";
+import { addCustomerApi, editCustomerApi } from "../services/CustomerApi";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const  AddCustomer = () =>{
+
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,11 +18,26 @@ const  AddCustomer = () =>{
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const isEditMode = location.state?.customer || null;
+
+  useEffect(()=>{
+    if (isEditMode) {
+      setFormData(isEditMode)
+    }
+  },[isEditMode])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
    try {
+    if (isEditMode) {
+      const res = await editCustomerApi(isEditMode._id,formData)
+      alert(res.data.message)
+       navigate("/all-customer")
+    } else{
     const res = await addCustomerApi(formData)
     alert(res.data.message)
+    navigate("/all-customer")
+    }
    } catch (error) {
     alert(error.response?.data?.message)
    }
@@ -83,7 +103,7 @@ const  AddCustomer = () =>{
           type="submit"
           className="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg shadow hover:bg-indigo-700 transition"
         >
-          Add Customer
+         {isEditMode ? "Edit Customer" : "Add Customer"} 
         </button>
       </form>
     </div>
