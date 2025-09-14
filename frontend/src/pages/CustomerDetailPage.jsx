@@ -46,7 +46,7 @@ const  CustomerDetailPage = ()=> {
       : leads.filter((lead) => lead.status === statusFilter);
 
   return (
-    <div className="ml-64 p-6">
+    <div className="p-6 mt-16 w-full md:ml-64 md:w-[calc(100%-16rem)]">
       {/* Customer Details */}
       {customer && (
         <div className="bg-white shadow rounded-xl p-6 mb-6">
@@ -85,7 +85,8 @@ const  CustomerDetailPage = ()=> {
         </div>
 
         {/* Leads Table */}
-        <table className="w-full border-collapse">
+        <div className="overflow-x-auto">
+        <table className="min-w-full border-collapse text-sm sm:text-base">
           <thead>
             <tr className="bg-gray-100 text-left">
               <th className="p-3 border">Title</th>
@@ -108,12 +109,12 @@ const  CustomerDetailPage = ()=> {
                     {new Date(lead.createdAt).toLocaleDateString()}
                   </td>
                   <td className="p-3 border space-x-2">
-                    <button className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                    <button className="px-3 py-1 mb-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
                     onClick={()=>navigate("/customer-detail-page/:id/add-lead",{state: {lead:lead}})}
                     >
                       Edit
                     </button>
-                    <button className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    <button className="px-3 py-1 mt-2 bg-red-500 text-white rounded hover:bg-red-600"
                     onClick={()=>handleDelete(lead._id)}
                     >
                       Delete
@@ -130,6 +131,7 @@ const  CustomerDetailPage = ()=> {
             )}
           </tbody>
         </table>
+         </div>
       </div>
     </div>
   );

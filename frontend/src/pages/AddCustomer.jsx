@@ -44,15 +44,16 @@ const  AddCustomer = () =>{
   };
 
   return (
-    <div className="p-6 md:ml-64">
-      <h2 className="text-2xl font-bold text-indigo-600 mb-6">Add Customer</h2>
+    <div className="p-6 md:ml-64 ">
+      
+      <div className="flex justify-center items-center min-h-[calc(100vh-4rem)]">
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-lg rounded-xl p-6 max-w-lg space-y-4"
+        className="bg-white shadow-lg rounded-xl p-6 w-full  max-w-lg space-y-4"
       >
     
-        <div>
+        <div className="">
           <label className="block text-sm font-medium text-gray-700">Name</label>
           <input
             type="text"
@@ -105,7 +106,9 @@ const  AddCustomer = () =>{
         >
          {isEditMode ? "Edit Customer" : "Add Customer"} 
         </button>
+        
       </form>
+      </div>
     </div>
   );
 }

@@ -39,7 +39,7 @@ const AllCustomers = () =>{
   return (
     <div className="p-6 md:ml-64 mt-16">
     
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
         <h2 className="text-xl font-semibold text-gray-800">All Customers</h2>
         <input
           type="text"
@@ -72,16 +72,16 @@ const AllCustomers = () =>{
                   <td className="p-3">{customer.company}</td>
                   <td className="p-3 space-x-2">
                     <Link to={`/customer-detail-page/${customer._id}`}>
-                    <button className="px-3 py-1 bg-blue-500 text-white rounded-lg">
+                    <button className="px-3 py-1 mb-2 bg-blue-500 text-white rounded-lg">
                       View
                     </button>
                     </Link>
-                    <button className="px-3 py-1 bg-yellow-500 text-white rounded-lg"
+                    <button className="px-3 py-1 mb-2 bg-yellow-500 text-white rounded-lg"
                     onClick={()=>navigate("/add-customer",{state: {customer:customer}})}
                     >
                       Edit
                     </button>
-                    <button className="px-3 py-1 bg-red-500 text-white rounded-lg"
+                    <button className="px-3 py-1  bg-red-500 text-white rounded-lg"
                     onClick={()=>handleDelete(customer._id)}
                     >
                       Delete

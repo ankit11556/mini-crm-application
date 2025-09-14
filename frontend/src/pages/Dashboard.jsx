@@ -26,7 +26,7 @@ const Dashboard = () => {
   }));
 
   return (
-    <div className="ml-64 p-6">
+    <div className=" p-6 w-full md:ml-64 md:w-[calc(100%-16rem)]">
       {/* Header */}
       <h1 className="text-2xl font-bold mb-6">📊 Dashboard</h1>
 
