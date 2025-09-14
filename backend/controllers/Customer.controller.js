@@ -64,3 +64,40 @@ exports.getCustomerDetailView = async (req,res) => {
     res.status(500).json({error: error.message})
   }
 }
+
+//delete customer
+exports.deleteCustomer = async (req,res) => {
+  try {
+    const {id} = req.params;
+    const customer = await Customer.findOneAndDelete({_id: id, ownerId: req.user._id})
+    if(!customer){
+      return res.status(404).json({message: "customer not found"})
+    }
+
+    res.status(200).json({message: "customer delete successfully"})
+  } catch (error) {
+    res.status(500).json({message: "Something went wrong",error: error.message})
+  }
+}
+
+//edit customer
+exports.editCustomer = async (req,res) => {
+  try {
+    const {id} = req.params;
+    const {name, email, phone, company} = req.body
+    
+    const edit = await Customer.findByIdAndUpdate(
+      {_id: id, ownerId: req.user._id},
+      {name, email, phone, company},
+      {new: true,runValidators:true}
+    );
+
+      if(!edit){
+      return res.status(404).json({error: "Customer not found"})
+    }
+
+    res.status(200).json({message: "Customer update successfully",edit})
+  } catch (error) {
+   res.status(500).json({error: error.message}) 
+  }
+}
