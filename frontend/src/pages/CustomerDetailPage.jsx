@@ -1,14 +1,29 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getCustomerDetailApi } from "../services/CustomerApi";
 import { Link } from "react-router-dom";
+import { deleteLeadApi } from "../services/LeadApi";
 
 const  CustomerDetailPage = ()=> {
+
+  const navigate = useNavigate()
 
   const { id } = useParams();
   const [customer, setCustomer] = useState(null);
   const [leads, setLeads] = useState([]);
   const [statusFilter, setStatusFilter] = useState("All");
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await deleteLeadApi(id)
+      alert(res.data.message);
+
+     const newLeads = leads.filter((lead)=>lead._id !==id)
+      setLeads(newLeads)
+    } catch (error) {
+      console.log(res.data?.message);
+    }
+  }
   
 
   useEffect(() => {
@@ -93,10 +108,14 @@ const  CustomerDetailPage = ()=> {
                     {new Date(lead.createdAt).toLocaleDateString()}
                   </td>
                   <td className="p-3 border space-x-2">
-                    <button className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">
+                    <button className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                    onClick={()=>navigate("/customer-detail-page/:id/add-lead",{state: {lead:lead}})}
+                    >
                       Edit
                     </button>
-                    <button className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                    <button className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    onClick={()=>handleDelete(lead._id)}
+                    >
                       Delete
                     </button>
                   </td>

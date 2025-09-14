@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { addLeadApi } from "../services/LeadApi";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { addLeadApi, editLeadApi } from "../services/LeadApi";
+import { useEffect } from "react";
 
 const AddLead = () => {
   const { id } = useParams(); // customerId from route
   
   const navigate = useNavigate();
+  const location = useLocation()
 
   const [formData, setFormData] = useState({
     title: "",
@@ -18,13 +20,27 @@ const AddLead = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const isEditMode = location.state?.lead || null;
+
+  useEffect(()=>{
+    if (isEditMode) {
+      setFormData(isEditMode)
+    }
+  },[isEditMode])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = { ...formData, customerId: id };
     try {
+      if (isEditMode) {
+        const res = await editLeadApi(isEditMode._id,payload)
+        alert(res.data.message)
+       navigate("/")
+      }else{
     const res =  await addLeadApi(payload);
       alert(res.data.message);
       navigate(`/customer-detail-page/${id}`); // redirect back to customer detail page
+      }
     } catch (error) {
       alert(error.response?.data?.message)
     }
