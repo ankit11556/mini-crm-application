@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerApi } from "../services/AuthApi";
 
 export default function Register() {
+
+  const navigate = useNavigate()
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,6 +21,7 @@ export default function Register() {
     try {
      const res = await registerApi(formData)
      alert(res.data.message)
+     navigate("/login")
     } catch (error) {
       alert(error.response?.data?.message || "Something went wrong")
     }

@@ -47,7 +47,7 @@ const AddLead = () => {
   };
 
   return (
-    <div className="ml-64 p-6">
+    <div className="ml-64 p-6 mt-16">
       <div className="bg-white shadow rounded-xl p-6 max-w-lg mx-auto">
         <h2 className="text-xl font-bold mb-4 text-gray-800">Add Lead</h2>
         <form onSubmit={handleSubmit} className="space-y-4">

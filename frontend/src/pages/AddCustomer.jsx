@@ -44,7 +44,10 @@ const  AddCustomer = () =>{
   };
 
   return (
-    <div className="p-6 md:ml-64 ">
+    <div className="p-6 md:ml-64 mt-12">
+      <h2 className="text-2xl font-bold text-indigo-600  text-center pt-4">
+      Add Customer
+    </h2>
       
       <div className="flex justify-center items-center min-h-[calc(100vh-4rem)]">
 
