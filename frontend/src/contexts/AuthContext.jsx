@@ -1,5 +1,5 @@
 import {  createContext, useContext, useEffect, useState } from "react";
-import { checkAuthApi } from "../services/AuthApi";
+import { checkAuthApi, logoutApi,  } from "../services/AuthApi";
 
 const AuthContext = createContext();
 
@@ -13,7 +13,7 @@ export const AuthProvider = ({children})=>{
       try {
         const res = await checkAuthApi() 
         setIsAutheticated(true)
-        setUser(res.data.user)
+        setUser(res.data.user)    
       } catch (error) {
         setIsAutheticated(false)
         setUser(null)
@@ -24,8 +24,20 @@ export const AuthProvider = ({children})=>{
     checkAuth()
   },[])
 
+  const logout = async () => {
+    try {
+     const res = await logoutApi();
+      alert(res.data.message)
+      setUser(null)
+      setIsAutheticated(false)
+      navigate("/login")
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  }
+
   return(
-    <AuthContext.Provider value={{isAutheticated,setIsAutheticated,user,setUser,loading}}>
+    <AuthContext.Provider value={{isAutheticated,setIsAutheticated,user,setUser,loading,logout}}>
       {children}
     </AuthContext.Provider>
   )

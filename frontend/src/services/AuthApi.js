@@ -18,3 +18,9 @@ export const checkAuthApi = async () => {
     {withCredentials: true}
   )
 }
+
+export const logoutApi = async () => {
+  return axios.post(`${API_URL}/auth/logout`,{},
+    {withCredentials: true}
+  )
+}

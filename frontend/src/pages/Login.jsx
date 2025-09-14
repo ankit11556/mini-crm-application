@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { loginApi } from "../services/AuthApi";
+import { useAuth } from "../contexts/AuthContext";
 
 const Login = () =>{
+
+  const navigate = useNavigate()
+
+  const {setIsAutheticated,setUser} = useAuth();
+
   const [formData, setFormData] = useState({ email: "", passwordHash: "" });
 
   const handleChange = (e) => {
@@ -14,6 +20,9 @@ const Login = () =>{
     try {
       const res = await  loginApi(formData)
       alert(res.data.message)
+      setIsAutheticated(true)
+      setUser(res.data.user)
+      navigate("/")
     } catch (error) {
       alert(error.response?.data?.message)
     }
