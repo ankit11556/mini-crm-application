@@ -3,8 +3,7 @@ import { useState } from "react";
 import { registerApi } from "../services/AuthApi";
 
 export default function Register() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -19,11 +18,11 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-     const res = await registerApi(formData)
-     alert(res.data.message)
-     navigate("/login")
+      const res = await registerApi(formData);
+      alert(res.data.message);
+      navigate("/login");
     } catch (error) {
-      alert(error.response?.data?.message || "Something went wrong")
+      alert(error.response?.data?.message || "Something went wrong");
     }
   };
 
@@ -72,7 +71,13 @@ export default function Register() {
           Register
         </button>
         <p className="text-sm text-black mt-5">
-          Already have an account? <Link to="/login" className="font-medium text-blue-600 hover:underline ">Login here</Link>
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="font-medium text-blue-600 hover:underline "
+          >
+            Login here
+          </Link>
         </p>
       </form>
     </div>

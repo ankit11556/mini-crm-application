@@ -1,9 +1,7 @@
-import axios from "axios"
+import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const dashboardStatsApi = async () => {
-  return axios.get(`${API_URL}/dashboard`,
-    {withCredentials: true}
-  )
-}
+  return axios.get(`${API_URL}/dashboard`, { withCredentials: true });
+};

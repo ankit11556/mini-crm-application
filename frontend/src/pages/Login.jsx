@@ -3,11 +3,10 @@ import { useState } from "react";
 import { loginApi } from "../services/AuthApi";
 import { useAuth } from "../contexts/AuthContext";
 
-const Login = () =>{
+const Login = () => {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-
-  const {setIsAutheticated,setUser} = useAuth();
+  const { setIsAutheticated, setUser } = useAuth();
 
   const [formData, setFormData] = useState({ email: "", passwordHash: "" });
 
@@ -18,13 +17,13 @@ const Login = () =>{
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await  loginApi(formData)
-      alert(res.data.message)
-      setIsAutheticated(true)
-      setUser(res.data.user)
-      navigate("/")
+      const res = await loginApi(formData);
+      alert(res.data.message);
+      setIsAutheticated(true);
+      setUser(res.data.user);
+      navigate("/");
     } catch (error) {
-      alert(error.response?.data?.message)
+      alert(error.response?.data?.message);
     }
   };
 
@@ -63,11 +62,17 @@ const Login = () =>{
           Login
         </button>
         <p className="text-sm text-black mt-5">
-         Don’t have an account yet? <Link to="/register" className="font-medium text-blue-600 hover:underline ">Register</Link>
+          Don’t have an account yet?{" "}
+          <Link
+            to="/register"
+            className="font-medium text-blue-600 hover:underline "
+          >
+            Register
+          </Link>
         </p>
       </form>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;

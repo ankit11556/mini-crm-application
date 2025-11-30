@@ -4,9 +4,8 @@ import { getCustomerDetailApi } from "../services/CustomerApi";
 import { Link } from "react-router-dom";
 import { deleteLeadApi } from "../services/LeadApi";
 
-const  CustomerDetailPage = ()=> {
-
-  const navigate = useNavigate()
+const CustomerDetailPage = () => {
+  const navigate = useNavigate();
 
   const { id } = useParams();
   const [customer, setCustomer] = useState(null);
@@ -15,21 +14,20 @@ const  CustomerDetailPage = ()=> {
 
   const handleDelete = async (id) => {
     try {
-      const res = await deleteLeadApi(id)
+      const res = await deleteLeadApi(id);
       alert(res.data.message);
 
-     const newLeads = leads.filter((lead)=>lead._id !==id)
-      setLeads(newLeads)
+      const newLeads = leads.filter((lead) => lead._id !== id);
+      setLeads(newLeads);
     } catch (error) {
       console.log(res.data?.message);
     }
-  }
-  
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getCustomerDetailApi(id);   
+        const res = await getCustomerDetailApi(id);
         setCustomer(res.data);
         setLeads(res.data.leads || []);
       } catch (err) {
@@ -50,11 +48,21 @@ const  CustomerDetailPage = ()=> {
       {/* Customer Details */}
       {customer && (
         <div className="bg-white shadow rounded-xl p-6 mb-6">
-          <h2 className="text-xl font-bold mb-4 text-gray-800">Customer Details</h2>
-          <p><span className="font-semibold">Name:</span> {customer.name}</p>
-          <p><span className="font-semibold">Email:</span> {customer.email}</p>
-          <p><span className="font-semibold">Phone:</span> {customer.phone}</p>
-          <p><span className="font-semibold">Company:</span> {customer.company}</p>
+          <h2 className="text-xl font-bold mb-4 text-gray-800">
+            Customer Details
+          </h2>
+          <p>
+            <span className="font-semibold">Name:</span> {customer.name}
+          </p>
+          <p>
+            <span className="font-semibold">Email:</span> {customer.email}
+          </p>
+          <p>
+            <span className="font-semibold">Phone:</span> {customer.phone}
+          </p>
+          <p>
+            <span className="font-semibold">Company:</span> {customer.company}
+          </p>
         </div>
       )}
 
@@ -78,63 +86,69 @@ const  CustomerDetailPage = ()=> {
 
           {/* Add Lead Button */}
           <Link to={`/customer-detail-page/${customer?._id}/add-lead`}>
-          <button className="ml-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-            + Add Lead
-          </button>
+            <button className="ml-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+              + Add Lead
+            </button>
           </Link>
         </div>
 
         {/* Leads Table */}
         <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse text-sm sm:text-base">
-          <thead>
-            <tr className="bg-gray-100 text-left">
-              <th className="p-3 border">Title</th>
-              <th className="p-3 border">Description</th>
-              <th className="p-3 border">Status</th>
-              <th className="p-3 border">Value</th>
-              <th className="p-3 border">Created At</th>
-              <th className="p-3 border">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredLeads.length > 0 ? (
-              filteredLeads.map((lead) => (
-                <tr key={lead._id} className="hover:bg-gray-50">
-                  <td className="p-3 border">{lead.title}</td>
-                  <td className="p-3 border">{lead.description}</td>
-                  <td className="p-3 border">{lead.status}</td>
-                  <td className="p-3 border">₹{lead.value}</td>
-                  <td className="p-3 border">
-                    {new Date(lead.createdAt).toLocaleDateString()}
-                  </td>
-                  <td className="p-3 border space-x-2">
-                    <button className="px-3 py-1 mb-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
-                    onClick={()=>navigate("/customer-detail-page/:id/add-lead",{state: {lead:lead}})}
-                    >
-                      Edit
-                    </button>
-                    <button className="px-3 py-1 mt-2 bg-red-500 text-white rounded hover:bg-red-600"
-                    onClick={()=>handleDelete(lead._id)}
-                    >
-                      Delete
-                    </button>
+          <table className="min-w-full border-collapse text-sm sm:text-base">
+            <thead>
+              <tr className="bg-gray-100 text-left">
+                <th className="p-3 border">Title</th>
+                <th className="p-3 border">Description</th>
+                <th className="p-3 border">Status</th>
+                <th className="p-3 border">Value</th>
+                <th className="p-3 border">Created At</th>
+                <th className="p-3 border">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredLeads.length > 0 ? (
+                filteredLeads.map((lead) => (
+                  <tr key={lead._id} className="hover:bg-gray-50">
+                    <td className="p-3 border">{lead.title}</td>
+                    <td className="p-3 border">{lead.description}</td>
+                    <td className="p-3 border">{lead.status}</td>
+                    <td className="p-3 border">₹{lead.value}</td>
+                    <td className="p-3 border">
+                      {new Date(lead.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className="p-3 border space-x-2">
+                      <button
+                        className="px-3 py-1 mb-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                        onClick={() =>
+                          navigate("/customer-detail-page/:id/add-lead", {
+                            state: { lead: lead },
+                          })
+                        }
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="px-3 py-1 mt-2 bg-red-500 text-white rounded hover:bg-red-600"
+                        onClick={() => handleDelete(lead._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className="text-center p-4 text-gray-500">
+                    No leads found.
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6" className="text-center p-4 text-gray-500">
-                  No leads found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-         </div>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
-}
+};
 
-export default CustomerDetailPage
+export default CustomerDetailPage;

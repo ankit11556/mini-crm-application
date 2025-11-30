@@ -5,9 +5,9 @@ import { useEffect } from "react";
 
 const AddLead = () => {
   const { id } = useParams(); // customerId from route
-  
+
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -22,27 +22,27 @@ const AddLead = () => {
 
   const isEditMode = location.state?.lead || null;
 
-  useEffect(()=>{
+  useEffect(() => {
     if (isEditMode) {
-      setFormData(isEditMode)
+      setFormData(isEditMode);
     }
-  },[isEditMode])
+  }, [isEditMode]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = { ...formData, customerId: id };
     try {
       if (isEditMode) {
-        const res = await editLeadApi(isEditMode._id,payload)
-        alert(res.data.message)
-       navigate("/")
-      }else{
-    const res =  await addLeadApi(payload);
-      alert(res.data.message);
-      navigate(`/customer-detail-page/${id}`); // redirect back to customer detail page
+        const res = await editLeadApi(isEditMode._id, payload);
+        alert(res.data.message);
+        navigate("/");
+      } else {
+        const res = await addLeadApi(payload);
+        alert(res.data.message);
+        navigate(`/customer-detail-page/${id}`); // redirect back to customer detail page
       }
     } catch (error) {
-      alert(error.response?.data?.message)
+      alert(error.response?.data?.message);
     }
   };
 

@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { deleteCustomerApi, getCustomersApi } from "../services/CustomerApi";
 import { Link, useNavigate } from "react-router-dom";
 
-const AllCustomers = () =>{
+const AllCustomers = () => {
   const [customers, setCustomers] = useState([]);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [limit] = useState(5); // per page items
+  const [limit] = useState(5);
   const [pagination, setPagination] = useState({});
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCustomers();
@@ -17,7 +17,7 @@ const AllCustomers = () =>{
 
   const fetchCustomers = async () => {
     try {
-      const res = await getCustomersApi(page, limit, search);  
+      const res = await getCustomersApi(page, limit, search);
       setCustomers(res.data.customers);
       setPagination(res.data.pagination);
     } catch (error) {
@@ -27,18 +27,17 @@ const AllCustomers = () =>{
 
   const handleDelete = async (id) => {
     try {
-      const res = await deleteCustomerApi(id)
+      const res = await deleteCustomerApi(id);
       alert(res.data.message);
 
-     const newCustomers = customers.filter((customer)=>customer._id !==id)
-      setCustomers(newCustomers)
+      const newCustomers = customers.filter((customer) => customer._id !== id);
+      setCustomers(newCustomers);
     } catch (error) {
       console.log(response.data?.message);
     }
-  }
+  };
   return (
     <div className="p-6 md:ml-64 mt-16">
-    
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
         <h2 className="text-xl font-semibold text-gray-800">All Customers</h2>
         <input
@@ -72,17 +71,23 @@ const AllCustomers = () =>{
                   <td className="p-3">{customer.company}</td>
                   <td className="p-3 space-x-2">
                     <Link to={`/customer-detail-page/${customer._id}`}>
-                    <button className="px-3 py-1 mb-2 bg-blue-500 text-white rounded-lg">
-                      View
-                    </button>
+                      <button className="px-3 py-1 mb-2 bg-blue-500 text-white rounded-lg">
+                        View
+                      </button>
                     </Link>
-                    <button className="px-3 py-1 mb-2 bg-yellow-500 text-white rounded-lg"
-                    onClick={()=>navigate("/add-customer",{state: {customer:customer}})}
+                    <button
+                      className="px-3 py-1 mb-2 bg-yellow-500 text-white rounded-lg"
+                      onClick={() =>
+                        navigate("/add-customer", {
+                          state: { customer: customer },
+                        })
+                      }
                     >
                       Edit
                     </button>
-                    <button className="px-3 py-1  bg-red-500 text-white rounded-lg"
-                    onClick={()=>handleDelete(customer._id)}
+                    <button
+                      className="px-3 py-1  bg-red-500 text-white rounded-lg"
+                      onClick={() => handleDelete(customer._id)}
                     >
                       Delete
                     </button>
@@ -134,6 +139,6 @@ const AllCustomers = () =>{
       </div>
     </div>
   );
-}
+};
 
-export default AllCustomers
+export default AllCustomers;
