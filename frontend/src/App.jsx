@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Navbar from './components/Navbar'
-import Sidebar from './components/Sidebar'
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 import AppRouter from "./routes/App.routes";
-import './App.css'
+import "./App.css";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -14,9 +14,11 @@ function App() {
       <Navbar toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
-      <AppRouter></AppRouter>
+      <div className="w-screen h-screen items-center justify-center flex">
+        <AppRouter></AppRouter>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

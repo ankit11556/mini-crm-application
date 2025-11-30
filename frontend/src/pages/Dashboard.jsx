@@ -1,5 +1,12 @@
-import  { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { useEffect, useState } from "react";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import { dashboardStatsApi } from "../services/DashboardApi";
 
 const Dashboard = () => {
@@ -8,7 +15,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await dashboardStatsApi()
+        const res = await dashboardStatsApi();
         setStats(res.data);
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
@@ -17,7 +24,7 @@ const Dashboard = () => {
     fetchStats();
   }, []);
 
-  if (!stats) return <p className="text-center mt-10">Loading Dashboard...</p>;
+  if (!stats) return <p className="text-xl font-bold">Loading Dashboard...</p>;
 
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
   const pieData = Object.keys(stats.leadsByStatus).map((status) => ({
@@ -26,7 +33,7 @@ const Dashboard = () => {
   }));
 
   return (
-    <div className=" p-6 w-full md:ml-64 md:w-[calc(100%-16rem)]">
+    <div className=" p-6 w-full md:ml-64 md:w-[calc(100%-16rem)] mt-30">
       {/* Header */}
       <h1 className="text-2xl font-bold mb-6">📊 Dashboard</h1>
 
@@ -34,15 +41,21 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-white shadow rounded-xl p-4 text-center">
           <h2 className="text-lg font-semibold">Total Customers</h2>
-          <p className="text-2xl font-bold text-blue-600">{stats.totalCustomers}</p>
+          <p className="text-2xl font-bold text-blue-600">
+            {stats.totalCustomers}
+          </p>
         </div>
         <div className="bg-white shadow rounded-xl p-4 text-center">
           <h2 className="text-lg font-semibold">Total Leads</h2>
-          <p className="text-2xl font-bold text-green-600">{stats.totalLeads}</p>
+          <p className="text-2xl font-bold text-green-600">
+            {stats.totalLeads}
+          </p>
         </div>
         <div className="bg-white shadow rounded-xl p-4 text-center">
           <h2 className="text-lg font-semibold">Total Revenue</h2>
-          <p className="text-2xl font-bold text-yellow-600">₹{stats.totalRevenue}</p>
+          <p className="text-2xl font-bold text-yellow-600">
+            ₹{stats.totalRevenue}
+          </p>
         </div>
         <div className="bg-white shadow rounded-xl p-4 text-center">
           <h2 className="text-lg font-semibold">Converted Leads</h2>
@@ -67,7 +80,10 @@ const Dashboard = () => {
                 label
               >
                 {pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
                 ))}
               </Pie>
               <Tooltip />
